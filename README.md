@@ -1,10 +1,6 @@
-
-# Template Usage Wiki 
-[https://github.com/selefra/selefra-provider-template/wiki](https://github.com/selefra/selefra-provider-template/wiki)
-
 # Selefra Provider Auth0
 
-Use this repo as a raw reference to **tables and schema** for Auth0 resources. [Here's](https://github.com/selefra/selefra-provider-auth0/blob/main/docs/tables/auth0.md) a summary of full coverage.
+Use this repo as a raw reference to **tables and schema** for Auth0 resources. [Here's](https://github.com/selefra/selefra-provider-auth0/blob/main/docs/docs/selefra-provider-auth0.md) a summary of full coverage.
 As an experienced user, the tables are especially helpful when you're writing SQL queries for specific task.
 If you're just starting, navigate to our documentation for example usage.
 

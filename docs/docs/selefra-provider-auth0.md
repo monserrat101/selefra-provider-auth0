@@ -1,4 +1,4 @@
-# Provider: selefra-terraform-provider-auth0
+# Provider: selefra-provider-auth
 
 ## Latest Version 
 
@@ -11,7 +11,7 @@ v0.0.1
 # Install 
 
 ```
-selefra provider install selefra-terraform-provider-auth0
+selefra provider install selefra-provider-auth0
 ```
 
 
