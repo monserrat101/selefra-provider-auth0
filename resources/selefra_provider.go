@@ -54,10 +54,10 @@ func GetSelefraTables() []*schema.Table {
 		tables = append(tables, table)
 	}
 
-	table, d = TableSchemaGenerator_auth0_email_template()
-	if !diagnostics.AddDiagnostics(d).HasError() {
-		tables = append(tables, table)
-	}
+	// table, d = TableSchemaGenerator_auth0_email_template()
+	// if !diagnostics.AddDiagnostics(d).HasError() {
+	// 	tables = append(tables, table)
+	// }
 
 	// table, d = TableSchemaGenerator_auth0_email()
 	// if !diagnostics.AddDiagnostics(d).HasError() {
@@ -89,20 +89,20 @@ func GetSelefraTables() []*schema.Table {
 		tables = append(tables, table)
 	}
 
-	table, d = TableSchemaGenerator_auth0_branding()
-	if !diagnostics.AddDiagnostics(d).HasError() {
-		tables = append(tables, table)
-	}
+	// table, d = TableSchemaGenerator_auth0_branding()
+	// if !diagnostics.AddDiagnostics(d).HasError() {
+	// 	tables = append(tables, table)
+	// }
 
 	table, d = TableSchemaGenerator_auth0_user()
 	if !diagnostics.AddDiagnostics(d).HasError() {
 		tables = append(tables, table)
 	}
 
-	table, d = TableSchemaGenerator_auth0_tenant()
-	if !diagnostics.AddDiagnostics(d).HasError() {
-		tables = append(tables, table)
-	}
+	// table, d = TableSchemaGenerator_auth0_tenant()
+	// if !diagnostics.AddDiagnostics(d).HasError() {
+	// 	tables = append(tables, table)
+	// }
 
 	table, d = TableSchemaGenerator_auth0_prompt()
 	if !diagnostics.AddDiagnostics(d).HasError() {
@@ -129,45 +129,45 @@ func GetSelefraTables() []*schema.Table {
 	//     tables = append(tables, table)
 	// }
 
-	table, d = TableSchemaGenerator_auth0_connection_client()
-	if !diagnostics.AddDiagnostics(d).HasError() {
-		tables = append(tables, table)
-	}
+	// table, d = TableSchemaGenerator_auth0_connection_client()
+	// if !diagnostics.AddDiagnostics(d).HasError() {
+	// 	tables = append(tables, table)
+	// }
 
-	table, d = TableSchemaGenerator_auth0_log_stream()
-	if !diagnostics.AddDiagnostics(d).HasError() {
-		tables = append(tables, table)
-	}
+	// table, d = TableSchemaGenerator_auth0_log_stream()
+	// if !diagnostics.AddDiagnostics(d).HasError() {
+	// 	tables = append(tables, table)
+	// }
 
-	table, d = TableSchemaGenerator_auth0_prompt_custom_text()
-	if !diagnostics.AddDiagnostics(d).HasError() {
-		tables = append(tables, table)
-	}
+	// table, d = TableSchemaGenerator_auth0_prompt_custom_text()
+	// if !diagnostics.AddDiagnostics(d).HasError() {
+	// 	tables = append(tables, table)
+	// }
 
-	table, d = TableSchemaGenerator_auth0_custom_domain()
-	if !diagnostics.AddDiagnostics(d).HasError() {
-		tables = append(tables, table)
-	}
+	// table, d = TableSchemaGenerator_auth0_custom_domain()
+	// if !diagnostics.AddDiagnostics(d).HasError() {
+	// 	tables = append(tables, table)
+	// }
 
-	table, d = TableSchemaGenerator_auth0_organization_member()
-	if !diagnostics.AddDiagnostics(d).HasError() {
-		tables = append(tables, table)
-	}
+	// table, d = TableSchemaGenerator_auth0_organization_member()
+	// if !diagnostics.AddDiagnostics(d).HasError() {
+	// 	tables = append(tables, table)
+	// }
 
-	table, d = TableSchemaGenerator_auth0_connection()
-	if !diagnostics.AddDiagnostics(d).HasError() {
-		tables = append(tables, table)
-	}
+	// table, d = TableSchemaGenerator_auth0_connection()
+	// if !diagnostics.AddDiagnostics(d).HasError() {
+	// 	tables = append(tables, table)
+	// }
 
-	table, d = TableSchemaGenerator_auth0_global_client()
-	if !diagnostics.AddDiagnostics(d).HasError() {
-		tables = append(tables, table)
-	}
+	// table, d = TableSchemaGenerator_auth0_global_client()
+	// if !diagnostics.AddDiagnostics(d).HasError() {
+	// 	tables = append(tables, table)
+	// }
 
-	table, d = TableSchemaGenerator_auth0_rule()
-	if !diagnostics.AddDiagnostics(d).HasError() {
-		tables = append(tables, table)
-	}
+	// table, d = TableSchemaGenerator_auth0_rule()
+	// if !diagnostics.AddDiagnostics(d).HasError() {
+	// 	tables = append(tables, table)
+	// }
 
 	if diagnostics.HasError() {
 		panic(diagnostics.ToString())
