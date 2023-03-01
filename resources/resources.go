@@ -473,19 +473,19 @@ func GetResource_auth0_trigger_binding() *selefra_terraform_schema.SelefraTerraf
 	}
 }
 
-// terraform resource: auth0_branding_theme
-func GetResource_auth0_branding_theme() *selefra_terraform_schema.SelefraTerraformResource {
-	return &selefra_terraform_schema.SelefraTerraformResource{
-		SelefraTableName:      "auth0_branding_theme",
-		TerraformResourceName: "auth0_branding_theme",
-		Description:           "",
-		SubTables:             nil,
-		ListResourceParamsFunc: func(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask, resultChannel chan<- any) ([]*selefra_terraform_schema.ResourceRequestParam, *schema.Diagnostics) {
-			// TODO
-			return nil, nil
-		},
-	}
-}
+// // terraform resource: auth0_branding_theme
+// func GetResource_auth0_branding_theme() *selefra_terraform_schema.SelefraTerraformResource {
+// 	return &selefra_terraform_schema.SelefraTerraformResource{
+// 		SelefraTableName:      "auth0_branding_theme",
+// 		TerraformResourceName: "auth0_branding_theme",
+// 		Description:           "",
+// 		SubTables:             nil,
+// 		ListResourceParamsFunc: func(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask, resultChannel chan<- any) ([]*selefra_terraform_schema.ResourceRequestParam, *schema.Diagnostics) {
+// 			// TODO
+// 			return nil, nil
+// 		},
+// 	}
+// }
 
 // terraform resource: auth0_client
 func GetResource_auth0_client() *selefra_terraform_schema.SelefraTerraformResource {

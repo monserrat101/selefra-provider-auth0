@@ -30,6 +30,5 @@ selefra provider install selefra-provider-auth0
 - [auth0_prompt](auth0_prompt.md)
 - [auth0_organization](auth0_organization.md)
 - [auth0_trigger_binding](auth0_trigger_binding.md)
-- [auth0_branding_theme](auth0_branding_theme.md)
 
 

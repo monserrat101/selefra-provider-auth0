@@ -16,7 +16,7 @@ const Version = "v0.0.1"
 
 func GetSelefraTerraformProvider() *selefra_terraform_schema.SelefraTerraformProvider {
 	return &selefra_terraform_schema.SelefraTerraformProvider{
-		Name:         "selefra-terraform-provider-auth0",
+		Name:         "selefra-provider-auth0",
 		Version:      Version,
 		ResourceList: getResources(),
 		ClientMeta: schema.ClientMeta{
@@ -66,13 +66,16 @@ func GetSelefraTerraformProvider() *selefra_terraform_schema.SelefraTerraformPro
 				# Config Your Auth0
 				# auth0_domain: <Your auth0 domain> 
 				# client_id: <Your client id>
-				# client_secret: <Your cuah>
+				# client_secret: <Your client secret>
 				`
 			},
 			Validation: func(ctx context.Context, config *viper.Viper) *schema.Diagnostics {
 				var conf Config
 				if err := config.Unmarshal(&conf); err != nil {
 					return schema.NewDiagnostics().AddErrorMsg("analysis config err: %s", err.Error())
+				}
+				if !conf.isEnvVaild() {
+					return schema.NewDiagnostics().AddErrorMsg("analysis config err: Cannot find your Environment Variable.")
 				}
 				return nil
 			},

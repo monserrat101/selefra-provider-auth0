@@ -119,10 +119,10 @@ func GetSelefraTables() []*schema.Table {
 		tables = append(tables, table)
 	}
 
-	table, d = TableSchemaGenerator_auth0_branding_theme()
-	if !diagnostics.AddDiagnostics(d).HasError() {
-		tables = append(tables, table)
-	}
+	// table, d = TableSchemaGenerator_auth0_branding_theme()
+	// if !diagnostics.AddDiagnostics(d).HasError() {
+	// 	tables = append(tables, table)
+	// }
 
 	// table, d = TableSchemaGenerator_auth0_client()
 	// if !diagnostics.AddDiagnostics(d).HasError() {

@@ -709,44 +709,44 @@ func GetColumns_auth0_trigger_binding() []*schema.Column {
 
 
 
-// auth0_branding_theme
-func TableSchemaGenerator_auth0_branding_theme() (*schema.Table, *schema.Diagnostics) {
-    diagnostics := schema.NewDiagnostics()
+// // auth0_branding_theme
+// func TableSchemaGenerator_auth0_branding_theme() (*schema.Table, *schema.Diagnostics) {
+//     diagnostics := schema.NewDiagnostics()
 
-    table, d := GetResource_auth0_branding_theme().ToTable(func(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask) *bridge.TerraformBridge {
-        return taskClient.(*Client).TerraformBridge
-    })
-    if diagnostics.AddDiagnostics(d).HasError() {
-        return nil, diagnostics
-    }
+//     table, d := GetResource_auth0_branding_theme().ToTable(func(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask) *bridge.TerraformBridge {
+//         return taskClient.(*Client).TerraformBridge
+//     })
+//     if diagnostics.AddDiagnostics(d).HasError() {
+//         return nil, diagnostics
+//     }
 
-    table.Columns = GetColumns_auth0_branding_theme()
-    if len(table.Columns) == 0 {
-        return nil, diagnostics.AddErrorMsg("")
-    }
+//     table.Columns = GetColumns_auth0_branding_theme()
+//     if len(table.Columns) == 0 {
+//         return nil, diagnostics.AddErrorMsg("")
+//     }
 
-    return table, diagnostics
-}
+//     return table, diagnostics
+// }
 
-// auth0_branding_theme
-func GetColumns_auth0_branding_theme() []*schema.Column {
-    return []*schema.Column{ 
-        table_schema_generator.NewColumnBuilder().ColumnName("page_background").ColumnType(schema.ColumnTypeJSON).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
-        table_schema_generator.NewColumnBuilder().ColumnName("widget").ColumnType(schema.ColumnTypeJSON).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
-        table_schema_generator.NewColumnBuilder().ColumnName("display_name").ColumnType(schema.ColumnTypeString).Description("The display name for the branding theme.").Build(), 
-        table_schema_generator.NewColumnBuilder().ColumnName("id").ColumnType(schema.ColumnTypeString).Build(), 
-        table_schema_generator.NewColumnBuilder().ColumnName("borders").ColumnType(schema.ColumnTypeJSON).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
-        table_schema_generator.NewColumnBuilder().ColumnName("colors").ColumnType(schema.ColumnTypeJSON).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
-        table_schema_generator.NewColumnBuilder().ColumnName("fonts").ColumnType(schema.ColumnTypeJSON).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
-        table_schema_generator.NewColumnBuilder().ColumnName("selefra_terraform_original_result").ColumnType(schema.ColumnTypeJSON).Description("save terraform original result for compatibility").
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
-    }
-}
+// // auth0_branding_theme
+// func GetColumns_auth0_branding_theme() []*schema.Column {
+//     return []*schema.Column{ 
+//         table_schema_generator.NewColumnBuilder().ColumnName("page_background").ColumnType(schema.ColumnTypeJSON).
+//         Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+//         table_schema_generator.NewColumnBuilder().ColumnName("widget").ColumnType(schema.ColumnTypeJSON).
+//         Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+//         table_schema_generator.NewColumnBuilder().ColumnName("display_name").ColumnType(schema.ColumnTypeString).Description("The display name for the branding theme.").Build(), 
+//         table_schema_generator.NewColumnBuilder().ColumnName("id").ColumnType(schema.ColumnTypeString).Build(), 
+//         table_schema_generator.NewColumnBuilder().ColumnName("borders").ColumnType(schema.ColumnTypeJSON).
+//         Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+//         table_schema_generator.NewColumnBuilder().ColumnName("colors").ColumnType(schema.ColumnTypeJSON).
+//         Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+//         table_schema_generator.NewColumnBuilder().ColumnName("fonts").ColumnType(schema.ColumnTypeJSON).
+//         Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+//         table_schema_generator.NewColumnBuilder().ColumnName("selefra_terraform_original_result").ColumnType(schema.ColumnTypeJSON).Description("save terraform original result for compatibility").
+//         Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+//     }
+// }
 
 
 

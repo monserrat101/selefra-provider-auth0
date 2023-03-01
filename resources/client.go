@@ -18,31 +18,40 @@ type Config struct {
 }
 
 func (c *Config) isVaild() bool {
-	if c.Domain == "" || c.ClientID == "" || c.ClientSecret == "" {
-		return false
+	return c.Domain != "" && c.ClientID != "" && c.ClientSecret != ""
+}
+
+func (c *Config) isEnvVaild() bool {
+	c.Domain = os.Getenv("AUTH0_DOMAIN")
+	if c.Domain == "" {
+		log.Println("cannot find your AUTH0_DOMAIN local environment variable.")
 	}
-	return true
+
+	c.ClientID = os.Getenv("AUTH0_CLIENT_ID")
+	if c.ClientID == "" {
+		log.Println("cannot find your AUTH0_CLIENT_ID local environment variable.")
+	}
+
+	c.ClientSecret = os.Getenv("AUTH0_CLIENT_SECRET")
+	if c.ClientSecret == "" {
+		log.Println("cannot find your AUTH0_CLIENT_SECRET local environment variable.")
+	}
+	return c.isVaild()
 }
 
 type Client struct {
 	TerraformBridge *bridge.TerraformBridge
 
-	Config Config
-	// TODO You can continue to refine your client
+	Config    Config
 	ApiClient *management.Management
 }
 
 func newClient(clientMeta *schema.ClientMeta, config Config) (*Client, error) {
 	if !config.isVaild() {
-		config.Domain = os.Getenv("AUTH0_DOMAIN")
-		config.ClientID = os.Getenv("AUTH0_CLIENT_ID")
-		config.ClientSecret = os.Getenv("AUTH0_CLIENT_SECRET")
-	}
-
-	if !config.isVaild() {
-		ErrorF(clientMeta, "Config Error!")
-		return nil, errors.New("Get Config Error!")
-
+		if !config.isEnvVaild() {
+			ErrorF(clientMeta, "Config Error! Cannot find your Environment Variable.")
+			return nil, errors.New("Config Error!")
+		}
 	}
 
 	client, err := management.New(
@@ -50,7 +59,8 @@ func newClient(clientMeta *schema.ClientMeta, config Config) (*Client, error) {
 		management.WithClientCredentials(config.ClientID, config.ClientSecret),
 	)
 	if err != nil {
-		log.Fatal("failed to initialize the auth0 management API client: %w", err)
+		ErrorF(clientMeta, "failed to initialize the auth0 management API client: %w", err)
+		return nil, errors.New("failed to initialize the auth0 management API client!")
 	}
 
 	return &Client{
