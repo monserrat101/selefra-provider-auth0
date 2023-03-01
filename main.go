@@ -4,7 +4,7 @@ package main
 
 import (
 	"github.com/selefra/selefra-provider-sdk/grpc/serve"
-	"github.com/selefra/selefra-provider-REPLACE-ME-TO-YOUR-PROVIDER-NAME/resources"
+	"github.com/selefra/selefra-provider-auth0/resources"
 )
 
 func main() {

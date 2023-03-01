@@ -33,11 +33,11 @@ type Client struct {
 }
 
 func newClient(clientMeta *schema.ClientMeta, config Config) (*Client, error) {
-	// if !config.isVaild() {
-	config.Domain = os.Getenv("AUTH0_DOMAIN")
-	config.ClientID = os.Getenv("AUTH0_CLIENT_ID")
-	config.ClientSecret = os.Getenv("AUTH0_CLIENT_SECRET")
-	// }
+	if !config.isVaild() {
+		config.Domain = os.Getenv("AUTH0_DOMAIN")
+		config.ClientID = os.Getenv("AUTH0_CLIENT_ID")
+		config.ClientSecret = os.Getenv("AUTH0_CLIENT_SECRET")
+	}
 
 	if !config.isVaild() {
 		ErrorF(clientMeta, "Config Error!")

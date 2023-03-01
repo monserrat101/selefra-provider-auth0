@@ -4,7 +4,7 @@
 
 # Selefra Provider Auth0
 
-Use this repo as a raw reference to **tables and schema** for Auth0 resources. [Here's](https://github.com/selefra/selefra-provider-REPLACE-ME-TO-YOUR-PROVIDER-NAME/blob/main/docs/tables/REPLACE-ME-TO-YOUR-PROVIDER-NAME.md) a summary of full coverage.
+Use this repo as a raw reference to **tables and schema** for Auth0 resources. [Here's](https://github.com/selefra/selefra-provider-auth0/blob/main/docs/tables/auth0.md) a summary of full coverage.
 As an experienced user, the tables are especially helpful when you're writing SQL queries for specific task.
 If you're just starting, navigate to our documentation for example usage.
 
