@@ -10,6 +10,7 @@ import (
 
 func Test(t *testing.T) {
 	docOutputDirectory := "./docs"
+	
 	_ = os.Mkdir(docOutputDirectory, os.ModePerm)
 	err := doc_gen.New(resources.GetSelefraProvider(), docOutputDirectory).Run()
 
