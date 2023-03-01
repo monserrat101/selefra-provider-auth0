@@ -1,4 +1,4 @@
-project_name: selefra-provider-REPLACE-ME-TO-YOUR-PROVIDER-NAME
+project_name: selefra-provider-auth0
 builds:
   - env: [CGO_ENABLED=0]
     goos:
