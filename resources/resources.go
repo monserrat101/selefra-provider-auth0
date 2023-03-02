@@ -319,7 +319,7 @@ func GetResource_auth0_resource_server() *selefra_terraform_schema.SelefraTerraf
 	}
 }
 
-// // TODO
+// TODO
 // // terraform resource: auth0_branding
 // func GetResource_auth0_branding() *selefra_terraform_schema.SelefraTerraformResource {
 // 	return &selefra_terraform_schema.SelefraTerraformResource{
@@ -371,6 +371,7 @@ func GetResource_auth0_user() *selefra_terraform_schema.SelefraTerraformResource
 	}
 }
 
+// Not Support
 // // terraform resource: auth0_tenant
 // func GetResource_auth0_tenant() *selefra_terraform_schema.SelefraTerraformResource {
 // 	return &selefra_terraform_schema.SelefraTerraformResource{
@@ -379,7 +380,20 @@ func GetResource_auth0_user() *selefra_terraform_schema.SelefraTerraformResource
 // 		Description:           "",
 // 		SubTables:             nil,
 // 		ListResourceParamsFunc: func(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask, resultChannel chan<- any) ([]*selefra_terraform_schema.ResourceRequestParam, *schema.Diagnostics) {
-// 			return nil, nil
+// 			client := taskClient.(*Client)
+// 			tenant, err := client.ApiClient.Tenant.Read()
+// 			if err != nil {
+// 				return nil, schema.NewDiagnosticsAddErrorMsg(err.Error())
+// 			}
+// 			resourceRequestParamSlice := make([]*selefra_terraform_schema.ResourceRequestParam, 0)
+// 			resourceRequestParamSlice = append(resourceRequestParamSlice, &selefra_terraform_schema.ResourceRequestParam{
+// 				ArgumentMap: map[string]any{
+// 					"identifier_first":               prompt.IdentifierFirst,
+// 					"webauthn_platform_first_factor": prompt.WebAuthnPlatformFirstFactor,
+// 					"universal_login_experience":     prompt.UniversalLoginExperience,
+// 				},
+// 			})
+// 			return resourceRequestParamSlice, nil
 // 		},
 // 	}
 // }
@@ -473,19 +487,35 @@ func GetResource_auth0_trigger_binding() *selefra_terraform_schema.SelefraTerraf
 	}
 }
 
-// // terraform resource: auth0_branding_theme
-// func GetResource_auth0_branding_theme() *selefra_terraform_schema.SelefraTerraformResource {
-// 	return &selefra_terraform_schema.SelefraTerraformResource{
-// 		SelefraTableName:      "auth0_branding_theme",
-// 		TerraformResourceName: "auth0_branding_theme",
-// 		Description:           "",
-// 		SubTables:             nil,
-// 		ListResourceParamsFunc: func(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask, resultChannel chan<- any) ([]*selefra_terraform_schema.ResourceRequestParam, *schema.Diagnostics) {
-// 			// TODO
-// 			return nil, nil
-// 		},
-// 	}
-// }
+// terraform resource: auth0_branding_theme
+func GetResource_auth0_branding_theme() *selefra_terraform_schema.SelefraTerraformResource {
+	return &selefra_terraform_schema.SelefraTerraformResource{
+		SelefraTableName:      "auth0_branding_theme",
+		TerraformResourceName: "auth0_branding_theme",
+		Description:           "",
+		SubTables:             nil,
+		ListResourceParamsFunc: func(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask, resultChannel chan<- any) ([]*selefra_terraform_schema.ResourceRequestParam, *schema.Diagnostics) {
+			client := taskClient.(*Client)
+			theme, err := client.ApiClient.BrandingTheme.Default()
+			if err != nil {
+				return nil, schema.NewDiagnosticsAddErrorMsg(err.Error())
+			}
+			resourceRequestParamSlice := make([]*selefra_terraform_schema.ResourceRequestParam, 0)
+			resourceRequestParamSlice = append(resourceRequestParamSlice, &selefra_terraform_schema.ResourceRequestParam{
+				ID: *theme.ID,
+				ArgumentMap: map[string]any{
+					"borders":         theme.Borders,
+					"colors":          theme.Colors,
+					"fonts":           theme.Fonts,
+					"page_background": theme.PageBackground,
+					"widget":          theme.Widget,
+				},
+			})
+
+			return resourceRequestParamSlice, nil
+		},
+	}
+}
 
 // terraform resource: auth0_client
 func GetResource_auth0_client() *selefra_terraform_schema.SelefraTerraformResource {
@@ -515,6 +545,7 @@ func GetResource_auth0_client() *selefra_terraform_schema.SelefraTerraformResour
 }
 
 // TODO
+// // find connection client API
 // // terraform resource: auth0_connection_client
 // func GetResource_auth0_connection_client() *selefra_terraform_schema.SelefraTerraformResource {
 // 	return &selefra_terraform_schema.SelefraTerraformResource{
@@ -581,10 +612,13 @@ func GetResource_auth0_log_stream() *selefra_terraform_schema.SelefraTerraformRe
 // 		SubTables:             nil,
 // 		ListResourceParamsFunc: func(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask, resultChannel chan<- any) ([]*selefra_terraform_schema.ResourceRequestParam, *schema.Diagnostics) {
 // 			client := taskClient.(*Client)
-// 			promot, err := client.ApiClient.Prompt.Read()
+// 			prompt, err := client.ApiClient.Prompt.Read()
 // 			if err != nil {
 // 				return nil, schema.NewDiagnosticsAddErrorMsg(err.Error())
 // 			}
+
+// 			// promptCustomText := client.ApiClient.Prompt.CustomText(prompt, prompt.)
+
 // 			resourceRequestParamSlice := make([]*selefra_terraform_schema.ResourceRequestParam, 0)
 // 			resourceRequestParamSlice = append(resourceRequestParamSlice, &selefra_terraform_schema.ResourceRequestParam{
 // 				// ID:promot,
@@ -594,72 +628,147 @@ func GetResource_auth0_log_stream() *selefra_terraform_schema.SelefraTerraformRe
 // 	}
 // }
 
-// // terraform resource: auth0_custom_domain
-// func GetResource_auth0_custom_domain() *selefra_terraform_schema.SelefraTerraformResource {
-// 	return &selefra_terraform_schema.SelefraTerraformResource{
-// 		SelefraTableName:      "auth0_custom_domain",
-// 		TerraformResourceName: "auth0_custom_domain",
-// 		Description:           "",
-// 		SubTables:             nil,
-// 		ListResourceParamsFunc: func(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask, resultChannel chan<- any) ([]*selefra_terraform_schema.ResourceRequestParam, *schema.Diagnostics) {
-// 			// TODO
-// 			return nil, nil
-// 		},
-// 	}
-// }
+// terraform resource: auth0_custom_domain
+func GetResource_auth0_custom_domain() *selefra_terraform_schema.SelefraTerraformResource {
+	return &selefra_terraform_schema.SelefraTerraformResource{
+		SelefraTableName:      "auth0_custom_domain",
+		TerraformResourceName: "auth0_custom_domain",
+		Description:           "",
+		SubTables:             nil,
+		ListResourceParamsFunc: func(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask, resultChannel chan<- any) ([]*selefra_terraform_schema.ResourceRequestParam, *schema.Diagnostics) {
+			client := taskClient.(*Client)
+			customDomainList, err := client.ApiClient.CustomDomain.List()
+			if err != nil {
+				return nil, schema.NewDiagnosticsAddErrorMsg(err.Error())
+			}
+			resourceRequestParamSlice := make([]*selefra_terraform_schema.ResourceRequestParam, 0)
+			for _, customDomain := range customDomainList {
+				resourceRequestParamSlice = append(resourceRequestParamSlice, &selefra_terraform_schema.ResourceRequestParam{
+					ID: *customDomain.ID,
+					ArgumentMap: map[string]any{
+						"domain": customDomain.Domain,
+						"type":   customDomain.Type,
+					},
+				})
+			}
+			return resourceRequestParamSlice, nil
+		},
+	}
+}
 
-// // terraform resource: auth0_organization_member
-// func GetResource_auth0_organization_member() *selefra_terraform_schema.SelefraTerraformResource {
-// 	return &selefra_terraform_schema.SelefraTerraformResource{
-// 		SelefraTableName:      "auth0_organization_member",
-// 		TerraformResourceName: "auth0_organization_member",
-// 		Description:           "",
-// 		SubTables:             nil,
-// 		ListResourceParamsFunc: func(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask, resultChannel chan<- any) ([]*selefra_terraform_schema.ResourceRequestParam, *schema.Diagnostics) {
-// 			// TODO
-// 			return nil, nil
-// 		},
-// 	}
-// }
+// terraform resource: auth0_organization_member
+func GetResource_auth0_organization_member() *selefra_terraform_schema.SelefraTerraformResource {
+	return &selefra_terraform_schema.SelefraTerraformResource{
+		SelefraTableName:      "auth0_organization_member",
+		TerraformResourceName: "auth0_organization_member",
+		Description:           "",
+		SubTables:             nil,
+		ListResourceParamsFunc: func(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask, resultChannel chan<- any) ([]*selefra_terraform_schema.ResourceRequestParam, *schema.Diagnostics) {
+			client := taskClient.(*Client)
+			organizationList, err := client.ApiClient.Organization.List()
+			if err != nil {
+				return nil, schema.NewDiagnosticsAddErrorMsg(err.Error())
+			}
 
-// // terraform resource: auth0_connection
-// func GetResource_auth0_connection() *selefra_terraform_schema.SelefraTerraformResource {
-// 	return &selefra_terraform_schema.SelefraTerraformResource{
-// 		SelefraTableName:      "auth0_connection",
-// 		TerraformResourceName: "auth0_connection",
-// 		Description:           "",
-// 		SubTables:             nil,
-// 		ListResourceParamsFunc: func(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask, resultChannel chan<- any) ([]*selefra_terraform_schema.ResourceRequestParam, *schema.Diagnostics) {
-// 			// TODO
-// 			return nil, nil
-// 		},
-// 	}
-// }
+			resourceRequestParamSlice := make([]*selefra_terraform_schema.ResourceRequestParam, 0)
+			for _, organization := range organizationList.Organizations {
+				organzationMemberList, err := client.ApiClient.Organization.Members(*organization.ID)
+				if err != nil {
+					return nil, schema.NewDiagnosticsAddErrorMsg(err.Error())
+				}
+				for _, member := range organzationMemberList.Members {
+					resourceRequestParamSlice = append(resourceRequestParamSlice, &selefra_terraform_schema.ResourceRequestParam{
+						ArgumentMap: map[string]any{
+							"organization_id": organization.ID,
+							"user_id":         member.UserID,
+						},
+					})
+				}
+			}
+			return resourceRequestParamSlice, nil
+		},
+	}
+}
 
-// // terraform resource: auth0_global_client
-// func GetResource_auth0_global_client() *selefra_terraform_schema.SelefraTerraformResource {
-// 	return &selefra_terraform_schema.SelefraTerraformResource{
-// 		SelefraTableName:      "auth0_global_client",
-// 		TerraformResourceName: "auth0_global_client",
-// 		Description:           "",
-// 		SubTables:             nil,
-// 		ListResourceParamsFunc: func(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask, resultChannel chan<- any) ([]*selefra_terraform_schema.ResourceRequestParam, *schema.Diagnostics) {
-// 			// TODO
-// 			return nil, nil
-// 		},
-// 	}
-// }
+// terraform resource: auth0_connection
+func GetResource_auth0_connection() *selefra_terraform_schema.SelefraTerraformResource {
+	return &selefra_terraform_schema.SelefraTerraformResource{
+		SelefraTableName:      "auth0_connection",
+		TerraformResourceName: "auth0_connection",
+		Description:           "",
+		SubTables:             nil,
+		ListResourceParamsFunc: func(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask, resultChannel chan<- any) ([]*selefra_terraform_schema.ResourceRequestParam, *schema.Diagnostics) {
+			client := taskClient.(*Client)
+			connectionsList, err := client.ApiClient.Connection.List()
+			if err != nil {
+				return nil, schema.NewDiagnosticsAddErrorMsg(err.Error())
+			}
 
-// // terraform resource: auth0_rule
-// func GetResource_auth0_rule() *selefra_terraform_schema.SelefraTerraformResource {
-// 	return &selefra_terraform_schema.SelefraTerraformResource{
-// 		SelefraTableName:      "auth0_rule",
-// 		TerraformResourceName: "auth0_rule",
-// 		Description:           "",
-// 		SubTables:             nil,
-// 		ListResourceParamsFunc: func(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask, resultChannel chan<- any) ([]*selefra_terraform_schema.ResourceRequestParam, *schema.Diagnostics) {
-// 			// TODO
-// 			return nil, nil
-// 		},
-// 	}
-// }
+			resourceRequestParamSlice := make([]*selefra_terraform_schema.ResourceRequestParam, 0)
+			for _, connection := range connectionsList.Connections {
+				resourceRequestParamSlice = append(resourceRequestParamSlice, &selefra_terraform_schema.ResourceRequestParam{
+					ID: *connection.ID,
+					ArgumentMap: map[string]any{
+						"name":     connection.Name,
+						"strategy": connection.Strategy,
+					},
+				})
+			}
+			return resourceRequestParamSlice, nil
+		},
+	}
+}
+
+// terraform resource: auth0_global_client
+func GetResource_auth0_global_client() *selefra_terraform_schema.SelefraTerraformResource {
+	return &selefra_terraform_schema.SelefraTerraformResource{
+		SelefraTableName:      "auth0_global_client",
+		TerraformResourceName: "auth0_global_client",
+		Description:           "",
+		SubTables:             nil,
+		ListResourceParamsFunc: func(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask, resultChannel chan<- any) ([]*selefra_terraform_schema.ResourceRequestParam, *schema.Diagnostics) {
+			client := taskClient.(*Client)
+			clientsList, err := client.ApiClient.Client.List()
+			if err != nil {
+				return nil, schema.NewDiagnosticsAddErrorMsg(err.Error())
+			}
+
+			resourceRequestParamSlice := make([]*selefra_terraform_schema.ResourceRequestParam, 0)
+			for _, client := range clientsList.Clients {
+				resourceRequestParamSlice = append(resourceRequestParamSlice, &selefra_terraform_schema.ResourceRequestParam{
+					ID: *client.ClientID,
+				})
+			}
+			return resourceRequestParamSlice, nil
+		},
+	}
+}
+
+// terraform resource: auth0_rule
+func GetResource_auth0_rule() *selefra_terraform_schema.SelefraTerraformResource {
+	return &selefra_terraform_schema.SelefraTerraformResource{
+		SelefraTableName:      "auth0_rule",
+		TerraformResourceName: "auth0_rule",
+		Description:           "",
+		SubTables:             nil,
+		ListResourceParamsFunc: func(ctx context.Context, clientMeta *schema.ClientMeta, taskClient any, task *schema.DataSourcePullTask, resultChannel chan<- any) ([]*selefra_terraform_schema.ResourceRequestParam, *schema.Diagnostics) {
+			client := taskClient.(*Client)
+			rulesList, err := client.ApiClient.Rule.List()
+			if err != nil {
+				return nil, schema.NewDiagnosticsAddErrorMsg(err.Error())
+			}
+
+			resourceRequestParamSlice := make([]*selefra_terraform_schema.ResourceRequestParam, 0)
+			for _, rule := range rulesList.Rules {
+				resourceRequestParamSlice = append(resourceRequestParamSlice, &selefra_terraform_schema.ResourceRequestParam{
+					ID: *rule.ID,
+					ArgumentMap: map[string]any{
+						"name":   rule.Name,
+						"script": rule.Script,
+					},
+				})
+			}
+			return resourceRequestParamSlice, nil
+		},
+	}
+}
