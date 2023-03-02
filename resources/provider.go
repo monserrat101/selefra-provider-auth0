@@ -2,6 +2,7 @@ package resources
 
 import (
 	"context"
+	"os"
 
 	"github.com/selefra/selefra-provider-sdk/terraform/bridge"
 	terraform_providers "github.com/selefra/selefra-provider-sdk/terraform/provider"
@@ -28,7 +29,7 @@ func GetSelefraTerraformProvider() *selefra_terraform_schema.SelefraTerraformPro
 				diagnostics := schema.NewDiagnostics()
 				client, err := newClient(clientMeta, conf)
 				if err != nil {
-					return  nil, schema.NewDiagnostics().AddErrorMsg("Init client error: ", err.Error())
+					return nil, schema.NewDiagnostics().AddErrorMsg("Init client error: ", err.Error())
 				}
 
 				// run terraform providers
@@ -74,8 +75,10 @@ func GetSelefraTerraformProvider() *selefra_terraform_schema.SelefraTerraformPro
 				if err := config.Unmarshal(&conf); err != nil {
 					return schema.NewDiagnostics().AddErrorMsg("analysis config err: %s", err.Error())
 				}
-				if !conf.isEnvVaild() {
-					return schema.NewDiagnostics().AddErrorMsg("analysis config err: Cannot find your Environment Variable.")
+				if config.GetString("auth0_domain") == "" && config.GetString("client_id") == "" && config.GetString("client_secret") == "" {
+					if os.Getenv("") == "" && os.Getenv("") == "" && os.Getenv("") == "" {
+						return schema.NewDiagnostics().AddErrorMsg("cannot find your local environment variable.")
+					}
 				}
 				return nil
 			},

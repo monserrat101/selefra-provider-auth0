@@ -2,7 +2,6 @@ package resources
 
 import (
 	"errors"
-	"log"
 	"os"
 
 	"github.com/selefra/selefra-provider-sdk/provider/schema"
@@ -21,20 +20,20 @@ func (c *Config) isVaild() bool {
 	return c.Domain != "" && c.ClientID != "" && c.ClientSecret != ""
 }
 
-func (c *Config) isEnvVaild() bool {
+func (c *Config) isEnvVaild(clientMeta *schema.ClientMeta) bool {
 	c.Domain = os.Getenv("AUTH0_DOMAIN")
 	if c.Domain == "" {
-		log.Println("cannot find your AUTH0_DOMAIN local environment variable.")
+		ErrorF(clientMeta, "cannot find your AUTH0_DOMAIN local environment variable.")
 	}
 
 	c.ClientID = os.Getenv("AUTH0_CLIENT_ID")
 	if c.ClientID == "" {
-		log.Println("cannot find your AUTH0_CLIENT_ID local environment variable.")
+		ErrorF(clientMeta, "cannot find your AUTH0_CLIENT_ID local environment variable.")
 	}
 
 	c.ClientSecret = os.Getenv("AUTH0_CLIENT_SECRET")
 	if c.ClientSecret == "" {
-		log.Println("cannot find your AUTH0_CLIENT_SECRET local environment variable.")
+		ErrorF(clientMeta, "cannot find your AUTH0_CLIENT_SECRET local environment variable.")
 	}
 	return c.isVaild()
 }
@@ -48,7 +47,7 @@ type Client struct {
 
 func newClient(clientMeta *schema.ClientMeta, config Config) (*Client, error) {
 	if !config.isVaild() {
-		if !config.isEnvVaild() {
+		if !config.isEnvVaild(clientMeta) {
 			ErrorF(clientMeta, "Config Error! Cannot find your Environment Variable.")
 			return nil, errors.New("Config Error!")
 		}
