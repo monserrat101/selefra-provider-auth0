@@ -63,12 +63,10 @@ func GetSelefraTerraformProvider() *selefra_terraform_schema.SelefraTerraformPro
 		},
 		ConfigMeta: provider.ConfigMeta{
 			GetDefaultConfigTemplate: func(ctx context.Context) string {
-				return `
-				# Config Your Auth0
+				return `# Config Your Auth0
 				# auth0_domain: <Your auth0 domain> 
 				# client_id: <Your client id>
-				# client_secret: <Your client secret>
-				`
+				# client_secret: <Your client secret>`
 			},
 			Validation: func(ctx context.Context, config *viper.Viper) *schema.Diagnostics {
 				var conf Config
