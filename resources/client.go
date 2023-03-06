@@ -11,9 +11,9 @@ import (
 )
 
 type Config struct {
-	Domain       string `json:"domain"`
-	ClientID     string `json:"client_id"`
-	ClientSecret string `json:"client_secret"`
+	Domain		string	`json:"domain"`
+	ClientID	string	`json:"client_id"`
+	ClientSecret	string	`json:"client_secret"`
 }
 
 func (c *Config) isVaild() bool {
@@ -39,10 +39,10 @@ func (c *Config) isEnvVaild(clientMeta *schema.ClientMeta) bool {
 }
 
 type Client struct {
-	TerraformBridge *bridge.TerraformBridge
+	TerraformBridge	*bridge.TerraformBridge
 
-	Config    Config
-	ApiClient *management.Management
+	Config		Config
+	ApiClient	*management.Management
 }
 
 func newClient(clientMeta *schema.ClientMeta, config Config) (*Client, error) {
@@ -63,8 +63,8 @@ func newClient(clientMeta *schema.ClientMeta, config Config) (*Client, error) {
 	}
 
 	return &Client{
-		ApiClient: client,
-		Config:    config,
+		ApiClient:	client,
+		Config:		config,
 	}, nil
 }
 

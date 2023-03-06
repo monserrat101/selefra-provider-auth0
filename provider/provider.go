@@ -13,7 +13,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-const Version = "v0.0.1"
+const Version = "v0.0.3"
 
 func GetSelefraTerraformProvider() *selefra_terraform_schema.SelefraTerraformProvider {
 	return &selefra_terraform_schema.SelefraTerraformProvider{
@@ -29,7 +29,7 @@ func GetSelefraTerraformProvider() *selefra_terraform_schema.SelefraTerraformPro
 				diagnostics := schema.NewDiagnostics()
 				client, err := newClient(clientMeta, conf)
 				if err != nil {
-					return nil, schema.NewDiagnostics().AddErrorMsg("Init client error: ", err.Error())
+					return nil, schema.NewDiagnostics().AddErrorMsg("Init client error: %s", err.Error())
 				}
 
 				// run terraform providers
@@ -64,9 +64,9 @@ func GetSelefraTerraformProvider() *selefra_terraform_schema.SelefraTerraformPro
 		ConfigMeta: provider.ConfigMeta{
 			GetDefaultConfigTemplate: func(ctx context.Context) string {
 				return `# Config Your Auth0
-				# auth0_domain: <Your auth0 domain> 
-				# client_id: <Your client id>
-				# client_secret: <Your client secret>`
+# auth0_domain: <Your auth0 domain>
+# client_id: <Your client id>
+# client_secret: <Your client secret>`
 			},
 			Validation: func(ctx context.Context, config *viper.Viper) *schema.Diagnostics {
 				var conf Config
@@ -75,7 +75,7 @@ func GetSelefraTerraformProvider() *selefra_terraform_schema.SelefraTerraformPro
 				}
 
 				if config.GetString("auth0_domain") == "" && config.GetString("client_id") == "" && config.GetString("client_secret") == "" {
-					if os.Getenv("") == "" && os.Getenv("") == "" && os.Getenv("") == "" {
+					if os.Getenv("AUTH0_DOMAIN") == "" && os.Getenv("AUTH0_CLIENT_ID") == "" && os.Getenv("AUTH0_CLIENT_SECRET") == "" {
 						return schema.NewDiagnostics().AddErrorMsg("cannot find your local environment variable.")
 					}
 				}
