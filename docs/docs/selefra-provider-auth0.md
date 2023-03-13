@@ -11,7 +11,7 @@ v0.0.1
 # Install 
 
 ```
-selefra provider install selefra-provider-auth0
+selefra provider install auth0
 ```
 
 
