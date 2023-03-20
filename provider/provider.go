@@ -24,12 +24,12 @@ func GetSelefraTerraformProvider() *selefra_terraform_schema.SelefraTerraformPro
 			InitClient: func(ctx context.Context, clientMeta *schema.ClientMeta, config *viper.Viper) ([]any, *schema.Diagnostics) {
 				var conf Config
 				if err := config.Unmarshal(&conf); err != nil {
-					return nil, schema.NewDiagnostics().AddErrorMsg("analysis config err: %s", err.Error())
+					return nil, schema.NewDiagnostics().AddErrorMsg("analysis config err: %s, You can view the documentation: https://www.selefra.io/docs/providers-connector/auth0", err.Error())
 				}
 				diagnostics := schema.NewDiagnostics()
 				client, err := newClient(clientMeta, conf)
 				if err != nil {
-					return nil, schema.NewDiagnostics().AddErrorMsg("Init client error: %s", err.Error())
+					return nil, schema.NewDiagnostics().AddErrorMsg("Init client error: %s, You can view the documentation: https://www.selefra.io/docs/providers-connector/auth0", err.Error())
 				}
 
 				// run terraform providers
@@ -76,7 +76,7 @@ func GetSelefraTerraformProvider() *selefra_terraform_schema.SelefraTerraformPro
 
 				if config.GetString("auth0_domain") == "" && config.GetString("client_id") == "" && config.GetString("client_secret") == "" {
 					if os.Getenv("AUTH0_DOMAIN") == "" && os.Getenv("AUTH0_CLIENT_ID") == "" && os.Getenv("AUTH0_CLIENT_SECRET") == "" {
-						return schema.NewDiagnostics().AddErrorMsg("cannot find your local environment variable.")
+						return schema.NewDiagnostics().AddErrorMsg("No valid configuration was found in the configuration file or in the environment variables, You can view the documentation: https://www.selefra.io/docs/providers-connector/auth0")
 					}
 				}
 				return nil

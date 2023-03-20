@@ -49,7 +49,7 @@ func newClient(clientMeta *schema.ClientMeta, config Config) (*Client, error) {
 	if !config.isVaild() {
 		if !config.isEnvVaild(clientMeta) {
 			ErrorF(clientMeta, "Config Error! Cannot find your Environment Variable.")
-			return nil, errors.New("Config Error!")
+			return nil, errors.New("Config Error, No valid configuration was found in the configuration file or in the environment variables.")
 		}
 	}
 
