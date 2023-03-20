@@ -1,0 +1,1 @@
+export TERRAFORM_PROVIDER_URL="https://github.com/auth0/terraform-provider-auth0"
