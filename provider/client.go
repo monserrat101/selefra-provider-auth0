@@ -11,9 +11,9 @@ import (
 )
 
 type Config struct {
-	Domain       string `json:"domain"`
-	ClientID     string `json:"client_id"`
-	ClientSecret string `json:"client_secret"`
+	Domain       string `json:"domain" yaml:"domain" mapstructure:"domain"`
+	ClientID     string `json:"client_id" yaml:"client_id" mapstructure:"client_id"`
+	ClientSecret string `json:"client_secret" yaml:"client_secret" mapstructure:"client_secret"`
 }
 
 func (c *Config) isVaild() bool {
