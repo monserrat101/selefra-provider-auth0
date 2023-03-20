@@ -72,7 +72,7 @@ func GetColumns_auth0_role() []*schema.Column {
         table_schema_generator.NewColumnBuilder().ColumnName("id").ColumnType(schema.ColumnTypeString).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("name").ColumnType(schema.ColumnTypeString).Description(`Name for this role.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("permissions").ColumnType(schema.ColumnTypeJSON).Description(`Configuration settings for permissions (scopes) attached to the role.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("permissions")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("selefra_terraform_original_result").ColumnType(schema.ColumnTypeJSON).Description(`save terraform original result for compatibility`).
         Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
     }
@@ -105,7 +105,7 @@ func GetColumns_auth0_custom_domain_verification() []*schema.Column {
         table_schema_generator.NewColumnBuilder().ColumnName("id").ColumnType(schema.ColumnTypeString).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("origin_domain_name").ColumnType(schema.ColumnTypeString).Description(`The DNS name of the Auth0 origin server that handles traffic for the custom domain.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("timeouts").ColumnType(schema.ColumnTypeJSON).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("timeouts")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("cname_api_key").ColumnType(schema.ColumnTypeString).Description("The value of the `cname-api-key` header to send when forwarding requests. Only present if the type of the custom domain is `self_managed_certs` and Terraform originally managed the domain's verification.").Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("custom_domain_id").ColumnType(schema.ColumnTypeString).Description(`ID of the custom domain resource.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("selefra_terraform_original_result").ColumnType(schema.ColumnTypeJSON).Description(`save terraform original result for compatibility`).
@@ -140,11 +140,11 @@ func GetColumns_auth0_action() []*schema.Column {
         table_schema_generator.NewColumnBuilder().ColumnName("name").ColumnType(schema.ColumnTypeString).Description(`The name of the action.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("version_id").ColumnType(schema.ColumnTypeString).Description("Version ID of the action. This value is available if `deploy` is set to true.").Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("dependencies").ColumnType(schema.ColumnTypeJSON).Description(`List of third party npm modules, and their versions, that this action depends on.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("dependencies")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("secrets").ColumnType(schema.ColumnTypeJSON).Description(`List of secrets that are included in an action or a version of an action.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("secrets")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("supported_triggers").ColumnType(schema.ColumnTypeJSON).Description(`List of triggers that this action supports. At this time, an action can only target a single trigger at a time. Read [Retrieving the set of triggers available within actions](https://registry.terraform.io/providers/auth0/auth0/latest/docs/guides/action_triggers) to retrieve the latest trigger versions supported.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("supported_triggers")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("deploy").ColumnType(schema.ColumnTypeBool).Description(`Deploying an action will create a new immutable version of the action. If the action is currently bound to a trigger, then the system will begin executing the newly deployed version of the action immediately.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("id").ColumnType(schema.ColumnTypeString).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("code").ColumnType(schema.ColumnTypeString).Description(`The source code of the action.`).Build(), 
@@ -183,9 +183,9 @@ func GetColumns_auth0_email() []*schema.Column {
         table_schema_generator.NewColumnBuilder().ColumnName("id").ColumnType(schema.ColumnTypeString).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("name").ColumnType(schema.ColumnTypeString).Description("Name of the email provider. Options include `mailgun`, `mandrill`, `sendgrid`, `ses`, `smtp`, and `sparkpost`.").Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("credentials").ColumnType(schema.ColumnTypeJSON).Description(`Configuration settings for the credentials for the email provider.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("credentials")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("settings").ColumnType(schema.ColumnTypeJSON).Description(`Specific email provider settings.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("settings")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("selefra_terraform_original_result").ColumnType(schema.ColumnTypeJSON).Description(`save terraform original result for compatibility`).
         Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
     }
@@ -218,17 +218,17 @@ func GetColumns_auth0_guardian() []*schema.Column {
         table_schema_generator.NewColumnBuilder().ColumnName("policy").ColumnType(schema.ColumnTypeString).Description("Policy to use. Available options are `never`, `all-applications` and `confidence-score`.").Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("recovery_code").ColumnType(schema.ColumnTypeBool).Description(`Indicates whether recovery code MFA is enabled.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("push").ColumnType(schema.ColumnTypeJSON).Description(`Configuration settings for the Push MFA. If this block is present, Push MFA will be enabled, and disabled otherwise.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("push")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("webauthn_platform").ColumnType(schema.ColumnTypeJSON).Description(`Configuration settings for the WebAuthn with FIDO Device Biometrics MFA. If this block is present, WebAuthn with FIDO Device Biometrics MFA will be enabled, and disabled otherwise.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("webauthn_platform")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("id").ColumnType(schema.ColumnTypeString).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("otp").ColumnType(schema.ColumnTypeBool).Description(`Indicates whether one time password MFA is enabled.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("duo").ColumnType(schema.ColumnTypeJSON).Description(`Configuration settings for the Duo MFA. If this block is present, Duo MFA will be enabled, and disabled otherwise.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("duo")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("phone").ColumnType(schema.ColumnTypeJSON).Description(`Configuration settings for the phone MFA. If this block is present, Phone MFA will be enabled, and disabled otherwise.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("phone")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("webauthn_roaming").ColumnType(schema.ColumnTypeJSON).Description(`Configuration settings for the WebAuthn with FIDO Security Keys MFA. If this block is present, WebAuthn with FIDO Security Keys MFA will be enabled, and disabled otherwise.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("webauthn_roaming")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("email").ColumnType(schema.ColumnTypeBool).Description(`Indicates whether email MFA is enabled.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("selefra_terraform_original_result").ColumnType(schema.ColumnTypeJSON).Description(`save terraform original result for compatibility`).
         Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
@@ -263,7 +263,7 @@ func GetColumns_auth0_client_grant() []*schema.Column {
         table_schema_generator.NewColumnBuilder().ColumnName("client_id").ColumnType(schema.ColumnTypeString).Description(`ID of the client for this grant.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("id").ColumnType(schema.ColumnTypeString).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("scope").ColumnType(schema.ColumnTypeJSON).Description(`Permissions (scopes) included in this grant.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("scope")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("selefra_terraform_original_result").ColumnType(schema.ColumnTypeJSON).Description(`save terraform original result for compatibility`).
         Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
     }
@@ -295,10 +295,10 @@ func GetColumns_auth0_hook() []*schema.Column {
     return []*schema.Column{ 
         table_schema_generator.NewColumnBuilder().ColumnName("script").ColumnType(schema.ColumnTypeString).Description(`Code to be executed when this hook runs.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("secrets").ColumnType(schema.ColumnTypeJSON).Description(`The secrets associated with the hook.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("secrets")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("trigger_id").ColumnType(schema.ColumnTypeString).Description(`Execution stage of this rule. Can be credentials-exchange, pre-user-registration, post-user-registration, post-change-password, or send-phone-message.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("dependencies").ColumnType(schema.ColumnTypeJSON).Description(`Dependencies of this hook used by the WebTask server.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("dependencies")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("enabled").ColumnType(schema.ColumnTypeBool).Description(`Whether the hook is enabled, or disabled.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("id").ColumnType(schema.ColumnTypeString).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("name").ColumnType(schema.ColumnTypeString).Description(`Name of this hook.`).Build(), 
@@ -375,11 +375,11 @@ func GetColumns_auth0_resource_server() []*schema.Column {
         table_schema_generator.NewColumnBuilder().ColumnName("id").ColumnType(schema.ColumnTypeString).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("skip_consent_for_verifiable_first_party_clients").ColumnType(schema.ColumnTypeBool).Description(`Indicates whether to skip user consent for applications flagged as first party.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("scopes").ColumnType(schema.ColumnTypeJSON).Description(`List of permissions (scopes) used by this resource server.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("scopes")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("identifier").ColumnType(schema.ColumnTypeString).Description(`Unique identifier for the resource server. Used as the audience parameter for authorization calls. Cannot be changed once set.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("name").ColumnType(schema.ColumnTypeString).Description("Friendly name for the resource server. Cannot include `<` or `>` characters.").Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("options").ColumnType(schema.ColumnTypeJSON).Description(`Used to store additional metadata.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("options")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("signing_alg").ColumnType(schema.ColumnTypeString).Description("Algorithm used to sign JWTs. Options include `HS256` and `RS256`.").Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("token_lifetime").ColumnType(schema.ColumnTypeFloat).Description(`Number of seconds during which access tokens issued for this resource server from the token endpoint remain valid.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("selefra_terraform_original_result").ColumnType(schema.ColumnTypeJSON).Description(`save terraform original result for compatibility`).
@@ -422,7 +422,7 @@ func GetColumns_auth0_user() []*schema.Column {
         table_schema_generator.NewColumnBuilder().ColumnName("email").ColumnType(schema.ColumnTypeString).Description(`Email address of the user.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("email_verified").ColumnType(schema.ColumnTypeBool).Description(`Indicates whether the email address has been verified.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("roles").ColumnType(schema.ColumnTypeJSON).Description(`Set of IDs of roles assigned to the user.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("roles")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("phone_number").ColumnType(schema.ColumnTypeString).Description(`Phone number for the user; follows the E.164 recommendation. Used for SMS connections. `).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("user_id").ColumnType(schema.ColumnTypeString).Description(`ID of the user.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("user_metadata").ColumnType(schema.ColumnTypeString).Description(`Custom fields that store info about the user that does not impact a user's core functionality. Examples include work address, home address, and user preferences.`).Build(), 
@@ -494,10 +494,10 @@ func TableSchemaGenerator_auth0_organization() (*schema.Table, *schema.Diagnosti
 func GetColumns_auth0_organization() []*schema.Column {
     return []*schema.Column{ 
         table_schema_generator.NewColumnBuilder().ColumnName("metadata").ColumnType(schema.ColumnTypeJSON).Description(`Metadata associated with the organization. Maximum of 10 metadata properties allowed.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("metadata")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("name").ColumnType(schema.ColumnTypeString).Description(`The name of this organization.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("branding").ColumnType(schema.ColumnTypeJSON).Description(`Defines how to style the login pages.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("branding")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("display_name").ColumnType(schema.ColumnTypeString).Description(`Friendly name of this organization.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("id").ColumnType(schema.ColumnTypeString).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("selefra_terraform_original_result").ColumnType(schema.ColumnTypeJSON).Description(`save terraform original result for compatibility`).
@@ -532,7 +532,7 @@ func GetColumns_auth0_trigger_binding() []*schema.Column {
         table_schema_generator.NewColumnBuilder().ColumnName("id").ColumnType(schema.ColumnTypeString).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("trigger").ColumnType(schema.ColumnTypeString).Description(`The ID of the trigger to bind with.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("actions").ColumnType(schema.ColumnTypeJSON).Description(`The actions bound to this trigger`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("actions")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("selefra_terraform_original_result").ColumnType(schema.ColumnTypeJSON).Description(`save terraform original result for compatibility`).
         Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
     }
@@ -563,17 +563,17 @@ func TableSchemaGenerator_auth0_branding_theme() (*schema.Table, *schema.Diagnos
 func GetColumns_auth0_branding_theme() []*schema.Column {
     return []*schema.Column{ 
         table_schema_generator.NewColumnBuilder().ColumnName("page_background").ColumnType(schema.ColumnTypeJSON).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("page_background")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("widget").ColumnType(schema.ColumnTypeJSON).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("widget")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("display_name").ColumnType(schema.ColumnTypeString).Description(`The display name for the branding theme.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("id").ColumnType(schema.ColumnTypeString).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("borders").ColumnType(schema.ColumnTypeJSON).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("borders")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("colors").ColumnType(schema.ColumnTypeJSON).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("colors")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("fonts").ColumnType(schema.ColumnTypeJSON).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("fonts")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("selefra_terraform_original_result").ColumnType(schema.ColumnTypeJSON).Description(`save terraform original result for compatibility`).
         Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
     }
@@ -604,29 +604,29 @@ func TableSchemaGenerator_auth0_client() (*schema.Table, *schema.Diagnostics) {
 func GetColumns_auth0_client() []*schema.Column {
     return []*schema.Column{ 
         table_schema_generator.NewColumnBuilder().ColumnName("allowed_origins").ColumnType(schema.ColumnTypeJSON).Description(`URLs that represent valid origins for cross-origin resource sharing. By default, all your callback URLs will be allowed.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("allowed_origins")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("app_type").ColumnType(schema.ColumnTypeString).Description("Type of application the client represents. Possible values are: `native`, `spa`, `regular_web`, `non_interactive`, `sso_integration`. Specific SSO integrations types accepted as well are: `rms`, `box`, `cloudbees`, `concur`, `dropbox`, `mscrm`, `echosign`, `egnyte`, `newrelic`, `office365`, `salesforce`, `sentry`, `sharepoint`, `slack`, `springcm`, `zendesk`, `zoom`.").Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("callbacks").ColumnType(schema.ColumnTypeJSON).Description(`URLs that Auth0 may call back to after a user authenticates for the client. Make sure to specify the protocol (https://) otherwise the callback may fail in some cases. With the exception of custom URI schemes for native clients, all callbacks should use protocol https://.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("callbacks")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("client_aliases").ColumnType(schema.ColumnTypeJSON).Description(`List of audiences/realms for SAML protocol. Used by the wsfed addon.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("client_aliases")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("cross_origin_auth").ColumnType(schema.ColumnTypeBool).Description("Whether this client can be used to make cross-origin authentication requests (`true`) or it is not allowed to make such requests (`false`). Requires the `coa_toggle_enabled` feature flag to be enabled on the tenant by the support team.").Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("description").ColumnType(schema.ColumnTypeString).Description(`Description of the purpose of the client.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("refresh_token").ColumnType(schema.ColumnTypeJSON).Description(`Configuration settings for the refresh tokens issued for this client.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("refresh_token")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("allowed_logout_urls").ColumnType(schema.ColumnTypeJSON).Description(`URLs that Auth0 may redirect to after logout.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("allowed_logout_urls")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("form_template").ColumnType(schema.ColumnTypeString).Description(`HTML form template to be used for WS-Federation.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("is_token_endpoint_ip_header_trusted").ColumnType(schema.ColumnTypeBool).Description(`Indicates whether the token endpoint IP header is trusted.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("logo_uri").ColumnType(schema.ColumnTypeString).Description(`URL of the logo for the client. Recommended size is 150px x 150px. If none is set, the default badge for the application type will be shown.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("web_origins").ColumnType(schema.ColumnTypeJSON).Description(`URLs that represent valid web origins for use with web message response mode.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("web_origins")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("client_metadata").ColumnType(schema.ColumnTypeJSON).Description("Metadata associated with the client, in the form of an object with string values (max 255 chars). Maximum of 10 metadata properties allowed. Field names (max 255 chars) are alphanumeric and may only include the following special characters: `:,-+=_*?\"/\\()<>@ [Tab] [Space]`.").
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("client_metadata")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("client_secret_rotation_trigger").ColumnType(schema.ColumnTypeJSON).Description(`Custom metadata for the rotation. The contents of this map are arbitrary and are hashed by the provider. When the hash changes, a rotation is triggered. For example, the map could contain the user making the change, the date of the change, and a text reason for the change. For more info: [rotate-client-secret](https://auth0.com/docs/get-started/applications/rotate-client-secret).`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("client_secret_rotation_trigger")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("grant_types").ColumnType(schema.ColumnTypeJSON).Description(`Types of grants that this client is authorized to use.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("grant_types")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("initiate_login_uri").ColumnType(schema.ColumnTypeString).Description(`Initiate login URI. Must be HTTPS or an empty string.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("token_endpoint_auth_method").ColumnType(schema.ColumnTypeString).Description("Defines the requested authentication method for the token endpoint. Options include `none` (public client without a client secret), `client_secret_post` (client uses HTTP POST parameters), `client_secret_basic` (client uses HTTP Basic).").Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("client_id").ColumnType(schema.ColumnTypeString).Description(`The ID of the client.`).Build(), 
@@ -634,19 +634,19 @@ func GetColumns_auth0_client() []*schema.Column {
         table_schema_generator.NewColumnBuilder().ColumnName("is_first_party").ColumnType(schema.ColumnTypeBool).Description(`Indicates whether this client is a first-party client.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("name").ColumnType(schema.ColumnTypeString).Description(`Name of the client.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("signing_keys").ColumnType(schema.ColumnTypeJSON).Description(`List containing a map of the public cert of the signing key and the public cert of the signing key in PKCS7.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("signing_keys")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("addons").ColumnType(schema.ColumnTypeJSON).Description(`Addons enabled for this client and their associated configurations.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("addons")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("jwt_configuration").ColumnType(schema.ColumnTypeJSON).Description(`Configuration settings for the JWTs issued for this client.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("jwt_configuration")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("native_social_login").ColumnType(schema.ColumnTypeJSON).Description("Configuration settings to toggle native social login for mobile native applications. Once this is set it must stay set, with both resources set to `false` in order to change the `app_type`.").
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("native_social_login")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("custom_login_page_on").ColumnType(schema.ColumnTypeBool).Description(`Indicates whether a custom login page is to be used.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("id").ColumnType(schema.ColumnTypeString).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("mobile").ColumnType(schema.ColumnTypeJSON).Description(`Additional configuration for native mobile apps.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("mobile")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("allowed_clients").ColumnType(schema.ColumnTypeJSON).Description(`List of applications ID's that will be allowed to make delegation request. By default, all applications will be allowed.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("allowed_clients")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("organization_require_behavior").ColumnType(schema.ColumnTypeString).Description("Defines how to proceed during an authentication transaction when `organization_usage = \"require\"`. Can be `no_prompt` (default) or `pre_login_prompt`.").Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("sso_disabled").ColumnType(schema.ColumnTypeBool).Description(`Indicates whether or not SSO is disabled.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("client_secret").ColumnType(schema.ColumnTypeString).Description("Secret for the client. Keep this private. To access this attribute you need to add the `read:client_keys` scope to the Terraform client. Otherwise, the attribute will contain an empty string.").Build(), 
@@ -654,7 +654,7 @@ func GetColumns_auth0_client() []*schema.Column {
         table_schema_generator.NewColumnBuilder().ColumnName("oidc_conformant").ColumnType(schema.ColumnTypeBool).Description(`Indicates whether this client will conform to strict OIDC specifications.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("organization_usage").ColumnType(schema.ColumnTypeString).Description("Defines how to proceed during an authentication transaction with regards to an organization. Can be `deny` (default), `allow` or `require`.").Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("encryption_key").ColumnType(schema.ColumnTypeJSON).Description(`Encryption used for WS-Fed responses with this client.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("encryption_key")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("sso").ColumnType(schema.ColumnTypeBool).Description(`Applies only to SSO clients and determines whether Auth0 will handle Single Sign-On (true) or whether the identity provider will (false).`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("selefra_terraform_original_result").ColumnType(schema.ColumnTypeJSON).Description(`save terraform original result for compatibility`).
         Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
@@ -686,13 +686,13 @@ func TableSchemaGenerator_auth0_log_stream() (*schema.Table, *schema.Diagnostics
 func GetColumns_auth0_log_stream() []*schema.Column {
     return []*schema.Column{ 
         table_schema_generator.NewColumnBuilder().ColumnName("filters").ColumnType(schema.ColumnTypeJSON).Description(`Only logs events matching these filters will be delivered by the stream. If omitted or empty, all events will be delivered.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("filters")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("id").ColumnType(schema.ColumnTypeString).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("name").ColumnType(schema.ColumnTypeString).Description(`Name of the log stream.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("status").ColumnType(schema.ColumnTypeString).Description(`The current status of the log stream. Options are "active", "paused", "suspended".`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("type").ColumnType(schema.ColumnTypeString).Description(`Type of the log stream, which indicates the sink provider.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("sink").ColumnType(schema.ColumnTypeJSON).Description(`The sink configuration for the log stream.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("sink")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("selefra_terraform_original_result").ColumnType(schema.ColumnTypeJSON).Description(`save terraform original result for compatibility`).
         Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
     }
@@ -725,7 +725,7 @@ func GetColumns_auth0_custom_domain() []*schema.Column {
         table_schema_generator.NewColumnBuilder().ColumnName("tls_policy").ColumnType(schema.ColumnTypeString).Description("TLS policy for the custom domain. Available options are: `compatible` or `recommended`. Compatible includes TLS 1.0, 1.1, 1.2, and recommended only includes TLS 1.2. Cannot be set on self_managed domains.").Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("type").ColumnType(schema.ColumnTypeString).Description("Provisioning type for the custom domain. Options include `auth0_managed_certs` and `self_managed_certs`.").Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("verification").ColumnType(schema.ColumnTypeJSON).Description(`Configuration settings for verification.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("verification")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("custom_client_ip_header").ColumnType(schema.ColumnTypeString).Description(`The HTTP header to fetch the client's IP address. Cannot be set on auth0_managed domains.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("domain").ColumnType(schema.ColumnTypeString).Description(`Name of the custom domain.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("id").ColumnType(schema.ColumnTypeString).Build(), 
@@ -764,7 +764,7 @@ func GetColumns_auth0_organization_member() []*schema.Column {
         table_schema_generator.NewColumnBuilder().ColumnName("id").ColumnType(schema.ColumnTypeString).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("organization_id").ColumnType(schema.ColumnTypeString).Description(`The ID of the organization to assign the member to.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("roles").ColumnType(schema.ColumnTypeJSON).Description(`The role ID(s) to assign to the organization member.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("roles")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("user_id").ColumnType(schema.ColumnTypeString).Description(`ID of the user to add as an organization member.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("selefra_terraform_original_result").ColumnType(schema.ColumnTypeJSON).Description(`save terraform original result for compatibility`).
         Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
@@ -796,19 +796,19 @@ func TableSchemaGenerator_auth0_connection() (*schema.Table, *schema.Diagnostics
 func GetColumns_auth0_connection() []*schema.Column {
     return []*schema.Column{ 
         table_schema_generator.NewColumnBuilder().ColumnName("enabled_clients").ColumnType(schema.ColumnTypeJSON).Description(`IDs of the clients for which the connection is enabled.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("enabled_clients")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("metadata").ColumnType(schema.ColumnTypeJSON).Description(`Metadata associated with the connection, in the form of a map of string values (max 255 chars). Maximum of 10 metadata properties allowed.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("metadata")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("name").ColumnType(schema.ColumnTypeString).Description(`Name of the connection.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("show_as_button").ColumnType(schema.ColumnTypeBool).Description(`Display connection as a button. Only available on enterprise connections.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("display_name").ColumnType(schema.ColumnTypeString).Description(`Name used in login screen.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("id").ColumnType(schema.ColumnTypeString).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("is_domain_connection").ColumnType(schema.ColumnTypeBool).Description(`Indicates whether the connection is domain level.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("realms").ColumnType(schema.ColumnTypeJSON).Description(`Defines the realms for which the connection will be used (e.g., email domains). If not specified, the connection name is added as the realm.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("realms")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("strategy").ColumnType(schema.ColumnTypeString).Description(`Type of the connection, which indicates the identity provider.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("options").ColumnType(schema.ColumnTypeJSON).Description(`Configuration settings for connection options.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("options")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("selefra_terraform_original_result").ColumnType(schema.ColumnTypeJSON).Description(`save terraform original result for compatibility`).
         Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
     }
@@ -839,49 +839,49 @@ func TableSchemaGenerator_auth0_global_client() (*schema.Table, *schema.Diagnost
 func GetColumns_auth0_global_client() []*schema.Column {
     return []*schema.Column{ 
         table_schema_generator.NewColumnBuilder().ColumnName("client_secret_rotation_trigger").ColumnType(schema.ColumnTypeJSON).Description(`Custom metadata for the rotation. The contents of this map are arbitrary and are hashed by the provider. When the hash changes, a rotation is triggered. For example, the map could contain the user making the change, the date of the change, and a text reason for the change. For more info: [rotate-client-secret](https://auth0.com/docs/get-started/applications/rotate-client-secret).`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("client_secret_rotation_trigger")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("cross_origin_loc").ColumnType(schema.ColumnTypeString).Description(`URL of the location in your site where the cross-origin verification takes place for the cross-origin auth flow when performing authentication in your own domain instead of Auth0 Universal Login page.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("form_template").ColumnType(schema.ColumnTypeString).Description(`HTML form template to be used for WS-Federation.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("signing_keys").ColumnType(schema.ColumnTypeJSON).Description(`List containing a map of the public cert of the signing key and the public cert of the signing key in PKCS7.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("signing_keys")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("sso_disabled").ColumnType(schema.ColumnTypeBool).Description(`Indicates whether or not SSO is disabled.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("jwt_configuration").ColumnType(schema.ColumnTypeJSON).Description(`Configuration settings for the JWTs issued for this client.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("jwt_configuration")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("mobile").ColumnType(schema.ColumnTypeJSON).Description(`Additional configuration for native mobile apps.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("mobile")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("client_id").ColumnType(schema.ColumnTypeString).Description(`The ID of the client.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("name").ColumnType(schema.ColumnTypeString).Description(`Name of the client.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("id").ColumnType(schema.ColumnTypeString).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("client_secret").ColumnType(schema.ColumnTypeString).Description("Secret for the client. Keep this private. To access this attribute you need to add the `read:client_keys` scope to the Terraform client. Otherwise, the attribute will contain an empty string.").Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("custom_login_page").ColumnType(schema.ColumnTypeString).Description(`The content (HTML, CSS, JS) of the custom login page.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("encryption_key").ColumnType(schema.ColumnTypeJSON).Description(`Encryption used for WS-Fed responses with this client.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("encryption_key")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("is_token_endpoint_ip_header_trusted").ColumnType(schema.ColumnTypeBool).Description(`Indicates whether the token endpoint IP header is trusted.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("logo_uri").ColumnType(schema.ColumnTypeString).Description(`URL of the logo for the client. Recommended size is 150px x 150px. If none is set, the default badge for the application type will be shown.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("refresh_token").ColumnType(schema.ColumnTypeJSON).Description(`Configuration settings for the refresh tokens issued for this client.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("refresh_token")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("client_aliases").ColumnType(schema.ColumnTypeJSON).Description(`List of audiences/realms for SAML protocol. Used by the wsfed addon.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("client_aliases")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("allowed_logout_urls").ColumnType(schema.ColumnTypeJSON).Description(`URLs that Auth0 may redirect to after logout.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("allowed_logout_urls")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("allowed_origins").ColumnType(schema.ColumnTypeJSON).Description(`URLs that represent valid origins for cross-origin resource sharing. By default, all your callback URLs will be allowed.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("allowed_origins")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("app_type").ColumnType(schema.ColumnTypeString).Description("Type of application the client represents. Possible values are: `native`, `spa`, `regular_web`, `non_interactive`, `sso_integration`. Specific SSO integrations types accepted as well are: `rms`, `box`, `cloudbees`, `concur`, `dropbox`, `mscrm`, `echosign`, `egnyte`, `newrelic`, `office365`, `salesforce`, `sentry`, `sharepoint`, `slack`, `springcm`, `zendesk`, `zoom`.").Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("allowed_clients").ColumnType(schema.ColumnTypeJSON).Description(`List of applications ID's that will be allowed to make delegation request. By default, all applications will be allowed.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("allowed_clients")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("initiate_login_uri").ColumnType(schema.ColumnTypeString).Description(`Initiate login URI. Must be HTTPS or an empty string.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("sso").ColumnType(schema.ColumnTypeBool).Description(`Applies only to SSO clients and determines whether Auth0 will handle Single Sign-On (true) or whether the identity provider will (false).`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("web_origins").ColumnType(schema.ColumnTypeJSON).Description(`URLs that represent valid web origins for use with web message response mode.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("web_origins")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("addons").ColumnType(schema.ColumnTypeJSON).Description(`Addons enabled for this client and their associated configurations.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("addons")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("grant_types").ColumnType(schema.ColumnTypeJSON).Description(`Types of grants that this client is authorized to use.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("grant_types")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("custom_login_page_on").ColumnType(schema.ColumnTypeBool).Description(`Indicates whether a custom login page is to be used.`).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("callbacks").ColumnType(schema.ColumnTypeJSON).Description(`URLs that Auth0 may call back to after a user authenticates for the client. Make sure to specify the protocol (https://) otherwise the callback may fail in some cases. With the exception of custom URI schemes for native clients, all callbacks should use protocol https://.`).
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("callbacks")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("native_social_login").ColumnType(schema.ColumnTypeJSON).Description("Configuration settings to toggle native social login for mobile native applications. Once this is set it must stay set, with both resources set to `false` in order to change the `app_type`.").
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("native_social_login")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("organization_usage").ColumnType(schema.ColumnTypeString).Description("Defines how to proceed during an authentication transaction with regards to an organization. Can be `deny` (default), `allow` or `require`.").Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("cross_origin_auth").ColumnType(schema.ColumnTypeBool).Description("Whether this client can be used to make cross-origin authentication requests (`true`) or it is not allowed to make such requests (`false`). Requires the `coa_toggle_enabled` feature flag to be enabled on the tenant by the support team.").Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("description").ColumnType(schema.ColumnTypeString).Description(`Description of the purpose of the client.`).Build(), 
@@ -890,7 +890,7 @@ func GetColumns_auth0_global_client() []*schema.Column {
         table_schema_generator.NewColumnBuilder().ColumnName("organization_require_behavior").ColumnType(schema.ColumnTypeString).Description("Defines how to proceed during an authentication transaction when `organization_usage = \"require\"`. Can be `no_prompt` (default) or `pre_login_prompt`.").Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("token_endpoint_auth_method").ColumnType(schema.ColumnTypeString).Description("Defines the requested authentication method for the token endpoint. Options include `none` (public client without a client secret), `client_secret_post` (client uses HTTP POST parameters), `client_secret_basic` (client uses HTTP Basic).").Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("client_metadata").ColumnType(schema.ColumnTypeJSON).Description("Metadata associated with the client, in the form of an object with string values (max 255 chars). Maximum of 10 metadata properties allowed. Field names (max 255 chars) are alphanumeric and may only include the following special characters: `:,-+=_*?\"/\\()<>@ [Tab] [Space]`.").
-        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
+        Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor("client_metadata")).Build(), 
         table_schema_generator.NewColumnBuilder().ColumnName("selefra_terraform_original_result").ColumnType(schema.ColumnTypeJSON).Description(`save terraform original result for compatibility`).
         Extractor(column_value_extractor.TerraformRawDataColumnValueExtractor()).Build(), 
     }

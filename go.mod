@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/auth0/go-auth0 v0.15.1
-	github.com/selefra/selefra-provider-sdk v0.0.21
+	github.com/selefra/selefra-provider-sdk v0.0.22
 	github.com/spf13/viper v1.14.0
 )
 
