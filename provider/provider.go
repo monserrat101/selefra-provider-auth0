@@ -17,7 +17,7 @@ const Version = "v0.0.3"
 
 func GetSelefraTerraformProvider() *selefra_terraform_schema.SelefraTerraformProvider {
 	return &selefra_terraform_schema.SelefraTerraformProvider{
-		Name:         "selefra-provider-auth0",
+		Name:         "auth0",
 		Version:      Version,
 		ResourceList: getResources(),
 		ClientMeta: schema.ClientMeta{
